@@ -1,4 +1,5 @@
 import sys
+import os
 import pygame
 from constants import *
 from player import Player
@@ -9,6 +10,7 @@ from shot import Shot
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    bg = pygame.image.load(os.path.join("assets", "space.gif"))
     clock = pygame.time.Clock()
     dt = 0
 
@@ -26,6 +28,7 @@ def main():
     asteroidfield = AsteroidField()
 
     while True:
+        screen.blit(bg, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -41,8 +44,6 @@ def main():
                 if asteroid.collides_with(shot):
                     shot.kill()
                     asteroid.split()
-
-        screen.fill("black")
 
         for thing in drawable:
             thing.draw(screen)
